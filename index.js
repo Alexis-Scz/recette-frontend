@@ -1,11 +1,22 @@
-function list_rct(){
+async function list_rct(){
+
+    
     const ulelement=document.querySelector("ul");
-    fetch("url_db")
-        .then((recette)=>{
-            for(const rct of recette){
+    const recette =  await fetch("http://localhost:3000/api/test");
+    ;
+    const rct= await recette.json();
+    console.log(rct);
+        
+    
+    // .then((recette)=>{
+    //         console.log(recette)
+           for(const lgn of rct){
+            console.log(lgn)
                 const lielement = document.createElement("li");
-                lielement.innerText=rct.nom;
-                ulelement.appendChild(lielement);
+                 lielement.innerText=lgn.nom;
+                 console.log(lgn.nom)
+                 ulelement.appendChild(lielement);
             }
-        }).catch((err) => {})
-}
+        }
+
+ list_rct()
