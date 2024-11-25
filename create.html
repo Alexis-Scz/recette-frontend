@@ -1,12 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>create</title>
+  </head>
+  <body>
     <p>create</p>
     <a href="acceuil.html"><button>retour acceuil</button></a>
-</body>
+
+    <form action="" onsubmit="post_new(event)" method="post">
+      <br />
+      <label for="nom">Nom recette : </label>
+      <input type="text" id="nom" name="nom" required/> <br />
+
+      <br />
+      <div id="zone_ingre">
+      <label for="ing">Ingredients : </label>
+      <select name="allingredients" id="ing">
+        <option value="new" id="new">Ajouter un ingredients</option>
+      </select>
+      <input type="text" id="new_ingr" hidden><script>
+    if (ing.innerText=="Ajouter un ingredient"){
+            document.querySelector("#new").removeAttribute("hidden")        
+
+
+
+
+      }
+    
+    
+    
+    </script>
+      </div>
+      <br />
+      <br />
+      <label for="qte">Quantité : </label>
+      <input type="text" id="qte" name="qte" />
+      <label for="unit"></label>
+      <select name="allunit" id="unit">
+        <option value="new">Ajouter une unit_mesure</option></select
+      ><br />
+
+      <br />
+
+      <label for="modop">Mode operatoire : </label><br />
+      <textarea id="modop"></textarea> <br />
+      <input type="submit"  value="Enregistrer recette" />
+    </form>
+
+    <script src="index.js"></script>
+  </body>
 </html>

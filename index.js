@@ -1,5 +1,4 @@
 async function list_rct() {
-  console.log(document.title);
   const ulelement = document.querySelector("ul");
   const recette = await fetch("http://localhost:3000/api/test");
   const rct = await recette.json();
@@ -8,7 +7,6 @@ async function list_rct() {
     const btnelement = document.createElement("button");
     btnelement.innerText = lgn.nom;
     btnelement.setAttribute("onclick", `gotoaffch(${lgn.id},'${lgn.nom}')`);
-    console.log(lgn.id);
     // setglobalvariablex=lign.id
     ulelement.appendChild(btnelement);
   }
@@ -60,10 +58,82 @@ async function afich() {
   }
 }
 
+
+
+async function lst_ingr() {
+  const allingredients = await fetch("http://localhost:3000/api/ing");
+  const allingr = await allingredients.json();
+  const zone_ing= document.querySelector("#zone_ingre")
+  const listelement=document.querySelector("#ing")
+  for (const ligne of allingr){
+    
+    const optelement=document.createElement("option")
+    optelement.innerText=ligne.nom 
+    listelement.appendChild(optelement)
+  }
+  if (zone_ing.innerText=="Ajouter un ingredient"){
+   
+  }
+}
+
+
+async function lst_unit() {
+  const allunites = await fetch("http://localhost:3000/api/lst_unit");
+  const allunits = await allunites.json();
+  const listelement=document.querySelector("#unit")
+  for (const unit of allunits){
+    
+    const optelement=document.createElement("option")
+    optelement.innerText=unit 
+    listelement.appendChild(optelement)
+
+
+  }
+  
+}
+
+async function post_new(event) {
+  event.preventDefault()
+  const varNom=document.querySelector("#nom").value
+  const VarIng=document.querySelector('#ing').value
+  const VarQte=document.querySelector('#qte').value
+  const VarUnit=document.querySelector('#unit').value
+  const VarModeop=document.querySelector("#modop").value
+  
+  
+
+  const body={
+    Nom_recette :varNom,
+    Ingredients_recette:VarIng,
+    Quantité_ingredient :VarQte,
+    Unit_mesure:VarUnit,
+    Mode_operatoire : VarModeop
+  }
+  console.log("🚀 ~ post_new ~ body:", body)
+  try {
+    const response = await fetch("http://localhost:3000/api/post",{
+      method : 'POST', 
+      headers: {'Content-Type': 'application/json'},
+      // le fonction JSON.stringify() te permet de transférer ton objet js en JSON
+      body: JSON.stringify(body)
+    })
+    console.log("🚀 ~ post_new ~ response:", response.json())
+    
+  } catch (error) {
+    console.log("🚀 ~ post_new ~ error:", error)
+  }
+  
+}
+  
+     
+
 if (document.title == "liste_rct") {
-  let x = "";
   list_rct();
 }
 if (document.title == "affichage") {
   afich();
+}
+if (document.title=="create"){
+  lst_ingr()
+  lst_unit()
 }
