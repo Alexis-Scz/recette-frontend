@@ -109,6 +109,7 @@ async function post_new(event) {
     Unit_mesure:VarUnit,
     Mode_operatoire : VarModeop
   }
+
   console.log("🚀 ~ post_new ~ body:", body)
   try {
     const response = await fetch("http://localhost:3000/api/post",{
@@ -117,15 +118,33 @@ async function post_new(event) {
       // le fonction JSON.stringify() te permet de transférer ton objet js en JSON
       body: JSON.stringify(body)
     })
-    console.log("🚀 ~ post_new ~ response:", response.json())
-    
+
   } catch (error) {
     console.log("🚀 ~ post_new ~ error:", error)
   }
   
 }
-  
-     
+
+async function affch_new(event) {
+  event.preventDefault()
+
+  console.log(ing.value)
+  if (ing.value=="new"){
+    document.querySelector("#new_txt_ing").removeAttribute("hidden")} 
+  if(ing.value!="new"){
+    document.querySelector("#new_txt_ing").setAttribute("hidden",true)
+  }
+  if (unit.value=="new"){
+    document.querySelector("#new_txt_unit").removeAttribute("hidden")} 
+  if(unit.value!="new"){
+    document.querySelector("#new_txt_unit").setAttribute("hidden",true)
+  }
+}
+
+
+
+
+
 
 if (document.title == "liste_rct") {
   list_rct();

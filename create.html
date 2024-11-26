@@ -16,36 +16,35 @@
 
       <br />
       <div id="zone_ingre">
-      <label for="ing">Ingredients : </label>
-      <select name="allingredients" id="ing">
+        <label for="ing">Ingredients : </label>
+        <select name="allingredients" id="ing" onchange="affch_new(event)" >
+        <option value="r" class="choix_base">choisir un ingredient</option>
         <option value="new" id="new">Ajouter un ingredients</option>
       </select>
-      <input type="text" id="new_ingr" hidden><script>
-    if (ing.innerText=="Ajouter un ingredient"){
-            document.querySelector("#new").removeAttribute("hidden")        
-
-
-
-
-      }
-    
-    
-    
-    </script>
+      <input type="text" id="new_txt_ing" hidden>
       </div>
       <br />
       <br />
+      <div>
       <label for="qte">Quantité : </label>
       <input type="text" id="qte" name="qte" />
       <label for="unit"></label>
-      <select name="allunit" id="unit">
-        <option value="new">Ajouter une unit_mesure</option></select
-      ><br />
+      <select name="allunit" id="unit" onchange="affch_new(event)">
+        <option value="r" class="choix_base">choisir un une unité de mesure</option>
+
+        <option value="new" >Ajouter une unité de mesure</option>
+        
+        
+      </select>
+      <input type="text" id="new_txt_unit" hidden>
+
+</div>
+        <br />
 
       <br />
 
       <label for="modop">Mode operatoire : </label><br />
-      <textarea id="modop"></textarea> <br />
+      <textarea id="modop" ></textarea> <br />
       <input type="submit"  value="Enregistrer recette" />
     </form>
 
