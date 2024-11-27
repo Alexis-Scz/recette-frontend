@@ -3,7 +3,7 @@ async function list_rct() {
   const recette = await fetch("http://localhost:3000/api/test");
   const rct = await recette.json();
 
-  for (const lgn of rct) {
+  for (const lgn of rct.rows) {
     const btnelement = document.createElement("button");
     btnelement.innerText = lgn.nom;
     btnelement.setAttribute("onclick", `gotoaffch(${lgn.id},'${lgn.nom}')`);
@@ -41,7 +41,7 @@ async function afich() {
   helement.innerText = nom;
   titreelement.appendChild(helement);
 
-  for (const ligne_ingr of ingr) {
+  for (const ligne_ingr of ingr.rows) {
     if (ligne_ingr.id_recette == id) {
       const lielement = document.createElement("li");
       lielement.innerText = allingr.find((i) => i.id == ligne_ingr.id_ingr).nom;
@@ -49,7 +49,7 @@ async function afich() {
     }
   }
 
-  for (const ligne_modop of modop) {
+  for (const ligne_modop of modop.rows) {
     if (ligne_modop.id == id) {
       const pelement = document.createElement("p");
       pelement.innerText = ligne_modop.mode_operatoire;
@@ -65,7 +65,8 @@ async function lst_ingr() {
   const allingr = await allingredients.json();
   const zone_ing= document.querySelector("#zone_ingre")
   const listelement=document.querySelector("#ing")
-  for (const ligne of allingr){
+  // console.log(allingr.rows)   JCCCCCCCCCC J'ai mis ".rows" apres l  variable dis moi si c ok comme ça stpp
+  for (const ligne of allingr.rows){
     
     const optelement=document.createElement("option")
     optelement.innerText=ligne.nom 
@@ -80,16 +81,17 @@ async function lst_ingr() {
 async function lst_unit() {
   const allunites = await fetch("http://localhost:3000/api/lst_unit");
   const allunits = await allunites.json();
+
   const listelement=document.querySelector("#unit")
-  for (const unit of allunits){
-    
+  for (const units of allunits.rows){
+    const unit=(units.unit_possible)
     const optelement=document.createElement("option")
-    optelement.innerText=unit 
+    optelement.innerText=unit
     listelement.appendChild(optelement)
 
 
   }
-  
+
 }
 
 async function post_new(event) {
@@ -99,8 +101,6 @@ async function post_new(event) {
   const VarQte=document.querySelector('#qte').value
   const VarUnit=document.querySelector('#unit').value
   const VarModeop=document.querySelector("#modop").value
-  
-  
 
   const body={
     Nom_recette :varNom,
@@ -140,7 +140,6 @@ async function affch_new(event) {
     document.querySelector("#new_txt_unit").setAttribute("hidden",true)
   }
 }
-
 
 
 
