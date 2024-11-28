@@ -58,92 +58,101 @@ async function afich() {
   }
 }
 
-
-
 async function lst_ingr() {
   const allingredients = await fetch("http://localhost:3000/api/ing");
   const allingr = await allingredients.json();
-  const zone_ing= document.querySelector("#zone_ingre")
-  const listelement=document.querySelector("#ing")
+  const zone_ing = document.querySelector("#zone_ingre");
+  const listelement = document.querySelector("#ing");
   // console.log(allingr.rows)   JCCCCCCCCCC J'ai mis ".rows" apres l  variable dis moi si c ok comme ça stpp
-  for (const ligne of allingr.rows){
-    
-    const optelement=document.createElement("option")
-    optelement.innerText=ligne.nom 
-    listelement.appendChild(optelement)
+  for (const ligne of allingr.rows) {
+    const optelement = document.createElement("option");
+    optelement.innerText = ligne.nom;
+    listelement.appendChild(optelement);
   }
-  if (zone_ing.innerText=="Ajouter un ingredient"){
-   
+  if (zone_ing.innerText == "Ajouter un ingredient") {
   }
 }
-
 
 async function lst_unit() {
   const allunites = await fetch("http://localhost:3000/api/lst_unit");
   const allunits = await allunites.json();
 
-  const listelement=document.querySelector("#unit")
-  for (const units of allunits.rows){
-    const unit=(units.unit_possible)
-    const optelement=document.createElement("option")
-    optelement.innerText=unit
-    listelement.appendChild(optelement)
-
-
+  const listelement = document.querySelector("#unit");
+  for (const units of allunits.rows) {
+    const unit = units.unit_possible;
+    const optelement = document.createElement("option");
+    optelement.innerText = unit;
+    listelement.appendChild(optelement);
   }
-
 }
 
 async function post_new(event) {
-  event.preventDefault()
-  const varNom=document.querySelector("#nom").value
-  const VarIng=document.querySelector('#ing').value
-  const VarQte=document.querySelector('#qte').value
-  const VarUnit=document.querySelector('#unit').value
-  const VarModeop=document.querySelector("#modop").value
-
-  const body={
-    Nom_recette :varNom,
-    Ingredients_recette:VarIng,
-    Quantité_ingredient :VarQte,
-    Unit_mesure:VarUnit,
-    Mode_operatoire : VarModeop
+  event.preventDefault();
+  const varNom = document.querySelector("#nom").value;
+  const VarIng = document.querySelector("#ing").value;
+  const VarQte = document.querySelector("#qte").value;
+  const VarUnit = document.querySelector("#unit").value;
+  const VarModeop = document.querySelector("#modop").value;
+  if (VarIng=="new"){
+    VarIng==document.querySelector("#new_txt_ing").value
   }
+  const body = {
+    Nom_recette: varNom,
+    Ingredients_recette: VarIng,
+    Quantité_ingredient: VarQte,
+    Unit_mesure: VarUnit,
+    Mode_operatoire: VarModeop,
+  };
 
-  console.log("🚀 ~ post_new ~ body:", body)
+  console.log("🚀 ~ post_new ~ body:", body);
   try {
-    const response = await fetch("http://localhost:3000/api/post",{
-      method : 'POST', 
-      headers: {'Content-Type': 'application/json'},
+    const response = await fetch("http://localhost:3000/api/post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       // le fonction JSON.stringify() te permet de transférer ton objet js en JSON
-      body: JSON.stringify(body)
-    })
-
+      body: JSON.stringify(body),
+    });
   } catch (error) {
-    console.log("🚀 ~ post_new ~ error:", error)
+    console.log("🚀 ~ post_new ~ error:", error);
   }
-  
 }
 
 async function affch_new(event) {
-  event.preventDefault()
+  event.preventDefault();
 
-  console.log(ing.value)
-  if (ing.value=="new"){
-    document.querySelector("#new_txt_ing").removeAttribute("hidden")} 
-  if(ing.value!="new"){
-    document.querySelector("#new_txt_ing").setAttribute("hidden",true)
+  console.log(ing.value);
+  if (ing.value == "new") {
+    document.querySelector("#new_txt_ing").removeAttribute("hidden");
   }
-  if (unit.value=="new"){
-    document.querySelector("#new_txt_unit").removeAttribute("hidden")} 
-  if(unit.value!="new"){
-    document.querySelector("#new_txt_unit").setAttribute("hidden",true)
+  if (ing.value != "new") {
+    document.querySelector("#new_txt_ing").setAttribute("hidden", true);
+  }
+  if (unit.value == "new") {
+    document.querySelector("#new_txt_unit").removeAttribute("hidden");
+  }
+  if (unit.value != "new") {
+    document.querySelector("#new_txt_unit").setAttribute("hidden", true);
   }
 }
 
+async function montrer(event) {
+  event.preventDefault();
+  const untelement = document.getElementsByClassName("unt");
+  console.log(untelement)
+  if (ing.value != "r") {
+    for (const lmn in untelement) {
+      if (Number.isInteger(parseInt(lmn))==true){
 
-
-
+      untelement[lmn].removeAttribute("hidden");}
+    }
+  }
+  if (ing.value == "r") {
+    for (const lmn in untelement) {
+      if (Number.isInteger(parseInt(lmn))==true){
+      untelement[lmn].setAttribute("hidden", true);}
+    }
+  }
+}
 
 if (document.title == "liste_rct") {
   list_rct();
@@ -151,7 +160,7 @@ if (document.title == "liste_rct") {
 if (document.title == "affichage") {
   afich();
 }
-if (document.title=="create"){
-  lst_ingr()
-  lst_unit()
+if (document.title == "create") {
+  lst_ingr();
+  lst_unit();
 }

@@ -17,7 +17,7 @@
       <br />
       <div id="zone_ingre">
         <label for="ing">Ingredients : </label>
-        <select name="allingredients" id="ing" onchange="affch_new(event)" >
+        <select name="allingredients" id="ing" onchange="affch_new(event),montrer(event)" >
         <option value="r" class="choix_base">choisir un ingredient</option>
         <option value="new" id="new">Ajouter un ingredients</option>
       </select>
@@ -26,10 +26,10 @@
       <br />
       <br />
       <div>
-      <label for="qte">Quantité : </label>
-      <input type="text" id="qte" name="qte" />
-      <label for="unit"></label>
-      <select name="allunit" id="unit" onchange="affch_new(event)">
+      <label for="qte" class="unt" hidden>Quantité : </label>
+      <input type="text" id="qte" name="qte" class="unt" hidden />
+      <label for="unit" hidden></label>
+      <select name="allunit" id="unit" onchange="affch_new(event)" class="unt" hidden>
         <option value="r" class="choix_base">choisir un une unité de mesure</option>
 
         <option value="new" >Ajouter une unité de mesure</option>
@@ -37,7 +37,7 @@
         
       </select>
       <input type="text" id="new_txt_unit" hidden>
-
+      <button class="unt" hidden>valider</button>
 </div>
         <br />
 
